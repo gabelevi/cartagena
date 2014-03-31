@@ -7,9 +7,7 @@ final class HomeController {
     return
       <head>
         <meta charset="UTF-8" />
-        <title>
-          {wp_title('&laquo;', true, 'right') . get_bloginfo('name')}
-        </title>
+        <wp:title sep="&laquo;" seplocation="right" />
         <link
           rel="stylesheet"
           href={get_bloginfo('stylesheet_url')}
@@ -68,14 +66,14 @@ final class HomeController {
   private function renderSidebar(): :xhp {
     return
       <div id="nav">
-        <h1><a href={get_option('home')}>{get_bloginfo('name')}</a></h1>
+        <h1><a href={get_option('home')}>{html_entity_decode(get_bloginfo('name'))}</a></h1>
         <ul id="pages">
           <li><a href={get_option('home')}>Home</a></li>
-          {wp_list_pages('title_li=')}
+          <wp:list-pages />
         </ul>
         <h2>Categories</h2>
         <ul id="categories">
-          {wp_list_categories('show_count=0&title_li=&hide_empty=0&exclude=1')}
+          <wp:list-categories />
         </ul>
       </div>;
   }
