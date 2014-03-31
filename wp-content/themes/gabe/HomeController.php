@@ -8,7 +8,7 @@ final class HomeController {
       <head>
         <meta charset="UTF-8" />
         <title>
-          {wp_title('$laquo;', true, 'right') . get_bloginfo('name')}
+          {wp_title('&laquo;', true, 'right') . get_bloginfo('name')}
         </title>
         <link
           rel="stylesheet"
@@ -28,6 +28,7 @@ final class HomeController {
   private function renderBody(): :body {
     return
       <body>
+        {$this->renderSidebar()}
         <div id="wrapper">
           <div id="container">
           Hello world!
@@ -62,6 +63,21 @@ final class HomeController {
         <x:comment comment={$comment} />
         {wp_footer()}
       </x:frag>;
+  }
+
+  private function renderSidebar(): :xhp {
+    return
+      <div id="nav">
+        <h1><a href={get_option('home')}>{get_bloginfo('name')}</a></h1>
+        <ul id="pages">
+          <li><a href={get_option('home')}>Home</a></li>
+          {wp_list_pages('title_li=')}
+        </ul>
+        <h2>Categories</h2>
+        <ul id="categories">
+          {wp_list_categories('show_count=0&title_li=&hide_empty=0&exclude=1')}
+        </ul>
+      </div>;
   }
 
   public function render(): :xhp {
