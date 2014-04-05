@@ -1,5 +1,5 @@
 <?hh
 
-require_once "HomeController.php";
+require_once "ThemeController.php";
 
-echo (string)(new HomeController())->render();
+echo (string)(new ThemeController())->render();

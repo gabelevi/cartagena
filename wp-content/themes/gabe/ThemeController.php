@@ -2,7 +2,7 @@
 
 require_once "xhp-lib/init.php";
 
-final class HomeController {
+final class ThemeController {
   private function renderHead(): :head {
     return
       <head>
@@ -19,7 +19,7 @@ final class HomeController {
           rel="shortcut icon"
           type="image/x-icon"
           href={get_bloginfo('template_url')."/images/favicon.ico"} />
-        {wp_head()}
+        <wp:head />
       </head>;
   }
 
@@ -59,23 +59,17 @@ final class HomeController {
           </ul>
         </div>
         <x:comment comment={$comment} />
-        {wp_footer()}
+        <wp:footer/>
       </x:frag>;
   }
 
   private function renderSidebar(): :xhp {
     return
-      <div id="nav">
-        <h1><a href={get_option('home')}>{html_entity_decode(get_bloginfo('name'))}</a></h1>
-        <ul id="pages">
-          <li><a href={get_option('home')}>Home</a></li>
-          <wp:list-pages />
-        </ul>
-        <h2>Categories</h2>
-        <ul id="categories">
-          <wp:list-categories />
-        </ul>
-      </div>;
+      <header>
+        <nav class="width">
+          <a href={get_option('home')}>{html_entity_decode(get_bloginfo('name'))}</a>
+        </nav>
+      </header>;
   }
 
   public function render(): :xhp {

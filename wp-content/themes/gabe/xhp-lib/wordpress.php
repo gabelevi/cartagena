@@ -29,3 +29,21 @@ class :wp:title extends :x:primitive {
       '</title>';
   }
 }
+
+class :wp:head extends :x:primitive {
+  category %metadata;
+  protected function stringify(): string {
+    ob_start();
+    wp_head();
+    return ob_get_clean();
+  }
+}
+
+class :wp:footer extends :x:primitive {
+  category %flow;
+  protected function stringify(): string {
+    ob_start();
+    wp_footer();
+    return ob_get_clean();
+  }
+}

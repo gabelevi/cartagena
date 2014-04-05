@@ -6,5 +6,20 @@ Author: Gabe Levi
 Author URI: http://www.facebook.com/gabe
 */
 
-#credits li {
+body {
+  margin: 0;
+}
+
+header {
+  background-color: gray;
+}
+
+header nav {
+  padding: 8px;
+}
+
+header a {
+  color: white;
+  font-size: 1.5em;
+  text-decoration: none;
 }
