@@ -3,6 +3,15 @@
 require_once "xhp-lib/init.php";
 
 final class ThemeController {
+  private function enqueueScripts(): void {
+    wp_enqueue_script(
+      'floorplan',
+      get_template_directory_uri().'/js/floorplan.js',
+      array('jquery'),
+      "0.01",
+      true /* in_footer */,
+    );
+  }
   private function renderHead(): :head {
     return
       <head>
@@ -12,9 +21,6 @@ final class ThemeController {
           rel="stylesheet"
           href={get_bloginfo('stylesheet_url')}
           type="text/css" />
-        <script
-          type="text/javascript"
-          src={get_bloginfo('template_url')."/js/scripts.js"} />
         <link
           rel="shortcut icon"
           type="image/x-icon"
@@ -27,9 +33,12 @@ final class ThemeController {
     return
       <body>
         {$this->renderSidebar()}
-        <div id="wrapper">
-          <div id="container">
-          Hello world!
+        <div class="content">
+          <div class="leftPane">
+            Left pane
+          </div>
+          <div class="floorplan">
+            <canvas id="canvas"/>
           </div>
         </div>
         {$this->renderFooter()}
@@ -44,20 +53,15 @@ final class ThemeController {
     );
     return
       <x:frag>
-        <div id="footer">
-          <ul id="credits">
-            <li>
-              <a href="http://wordpress.org" class="wordpress">
-                Powered by Wordpress
-              </a>
-            </li>
-            <li>
-              <a href="http://github.com/gabelevi" class="wordpress">
-                Theme by Gabe Levi
-              </a>
-            </li>
-          </ul>
-        </div>
+        <footer>
+          <a href="http://wordpress.org" class="wordpress">
+            Powered by Wordpress
+          </a>
+          &middot;
+          <a href="http://github.com/gabelevi" class="wordpress">
+            Theme by Gabe Levi
+          </a>
+        </footer>
         <x:comment comment={$comment} />
         <wp:footer/>
       </x:frag>;
@@ -73,6 +77,7 @@ final class ThemeController {
   }
 
   public function render(): :xhp {
+    $this->enqueueScripts();
     return
       <x:doctype>
         <html>

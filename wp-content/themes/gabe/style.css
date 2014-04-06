@@ -6,12 +6,17 @@ Author: Gabe Levi
 Author URI: http://www.facebook.com/gabe
 */
 
+html, body {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
 }
 
 header {
   background-color: gray;
+  font-size: 1.5em;
 }
 
 header nav {
@@ -20,6 +25,29 @@ header nav {
 
 header a {
   color: white;
-  font-size: 1.5em;
   text-decoration: none;
+}
+
+.leftPane {
+  float: left;
+  width: 200px;
+}
+
+.floorplan {
+  margin-left: 200px;
+  background-color: gray;
+  border-left: 4px solid black;
+}
+
+.floorplan canvas {
+  display: block;
+}
+
+footer {
+  text-align: center;
+  background-color: gray;
+}
+
+footer a {
+  color: white;
 }
