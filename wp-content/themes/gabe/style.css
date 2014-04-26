@@ -39,6 +39,22 @@ header a {
   border-left: 4px solid black;
 }
 
+.floorplan .zoom {
+  position: absolute;
+  right: 0;
+  padding-right: 8px;
+}
+
+.zoom-in, .zoom-out {
+  background-color: white;
+  border: 1px solid black;
+  font-size: 20px;
+  margin: 2px;
+  padding: 2px;
+  text-align: center;
+  width: 24px;
+}
+
 .floorplan canvas {
   display: block;
 }

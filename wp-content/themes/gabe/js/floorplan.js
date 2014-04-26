@@ -4,22 +4,24 @@
   var context = canvas.getContext('2d');
   var img = new Image();
 
+  var zoom = 1;
+
+
   var redraw = function () {
     context.fillStyle = '#808080';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
+    var x = (1 - zoom) * canvas.width / 2;
+    var y = (1 - zoom) * canvas.height / 2;
     if (canvas.width / canvas.height < img.width / img.height) {
       // width limited
-      var ratio = canvas.width / img.width;
-      var x = 0;
+      var ratio = zoom * canvas.width / img.width;
       var y = (canvas.height - ratio * img.height) / 2;
     } else {
       // height limited
-      var ratio = canvas.height / img.height;
+      var ratio = zoom * canvas.height / img.height;
       var x = (canvas.width - ratio * img.width) / 2;
-      var y = 0;
     }
-    console.log(x, y);
 
     context.drawImage(img, x, y, ratio * img.width, ratio * img.height);
   };
@@ -32,6 +34,16 @@
     canvas.height = Math.ceil(wHeight - cPos.top - $j('footer').height());
     redraw();
   }
+
+  $j('#zoom-in').on('click', function () {
+    zoom = Math.min(16, zoom * 2);
+    redraw();
+  });
+  $j('#zoom-out').on('click', function () {
+    zoom = Math.max(1, zoom / 2);
+    redraw();
+  });
+
   $j(window).resize(resize);
   resize();
   img.onload = redraw;

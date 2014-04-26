@@ -38,6 +38,10 @@ final class ThemeController {
             Left pane
           </div>
           <div class="floorplan">
+            <div class="zoom">
+              <div id="zoom-in" class="zoom-in">+</div>
+              <div id="zoom-out" class="zoom-out">&mdash;</div>
+            </div>
             <canvas id="canvas"/>
           </div>
         </div>
