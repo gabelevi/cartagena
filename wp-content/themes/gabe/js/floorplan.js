@@ -44,6 +44,34 @@
     redraw();
   }
 
+  canvas.addEventListener('touchstart', function (e) {
+    if (e.targetTouches.length == 1) {
+      var touch = e.targetTouches[0];
+      var startX = touch.clientX;
+      var startY = touch.clientY;
+      var origPanX = panX;
+      var origPanY = panY;
+      var updatePan = function (e) {
+        if (e.targetTouches.length == 1) {
+          var dX = touch.clientX - startX;
+          var dY = touch.clientY - startY;
+          panX = origPanX + dX / zoom;
+          panY = origPanY + dY / zoom;
+          redraw();
+        }
+        e.preventDefault();
+      }
+      var onEnd = function (e) {
+        updatePan(e);
+        canvas.removeEventListener('touchmove', updatePan);
+        canvas.removeEventListener('touchend', onEnd);
+      }
+      canvas.addEventListener('touchmove', updatePan, false);
+      canvas.addEventListener('touchend', onEnd, false);
+      e.preventDefault();
+    }
+  }, false);
+
   canvas.onmousedown = function (e) {
     var startX = e.clientX;
     var startY = e.clientY;

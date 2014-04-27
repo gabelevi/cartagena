@@ -48,11 +48,20 @@ header a {
 .zoom-in, .zoom-out {
   background-color: white;
   border: 1px solid black;
-  font-size: 20px;
+  text-align: center;
+  font-size: 80px;
   margin: 2px;
   padding: 2px;
-  text-align: center;
-  width: 24px;
+  width: 100px;
+}
+
+@media only screen and (min-device-width: 480px) {
+  .zoom-in, .zoom-out {
+    font-size: 20px;
+    margin: 2px;
+    padding: 2px;
+    width: 24px;
+  }
 }
 
 .floorplan canvas {
