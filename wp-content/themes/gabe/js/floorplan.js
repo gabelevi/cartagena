@@ -5,7 +5,8 @@
   var img = new Image();
 
   var zoom = 1;
-
+  var panX = 0;
+  var panY = 0;
 
   var redraw = function () {
     context.fillStyle = '#808080';
@@ -22,6 +23,14 @@
       var ratio = zoom * canvas.height / img.height;
       var x = (canvas.width - ratio * img.width) / 2;
     }
+    if (zoom > 1) {
+      panX = Math.min(-x / zoom, Math.max(x / zoom, panX));
+      panY = Math.min(-y / zoom, Math.max(y / zoom, panY));
+    } else {
+      panX = panY = 0;
+    }
+    x = x + panX * zoom;
+    y = y + panY * zoom;
 
     context.drawImage(img, x, y, ratio * img.width, ratio * img.height);
   };
@@ -33,6 +42,26 @@
     canvas.width = Math.ceil(wWidth - cPos.left);
     canvas.height = Math.ceil(wHeight - cPos.top - $j('footer').height());
     redraw();
+  }
+
+  canvas.onmousedown = function (e) {
+    var startX = e.clientX;
+    var startY = e.clientY;
+    var origPanX = panX;
+    var origPanY = panY;
+    var updatePan = function (e) {
+      var dX = e.clientX - startX;
+      var dY = e.clientY - startY;
+      panX = origPanX + dX / zoom;
+      panY = origPanY + dY / zoom;
+      redraw();
+    }
+    canvas.onmousemove = updatePan;
+    canvas.onmouseup = function (e) {
+      updatePan(e);
+      canvas.onmouseup = function () {}
+      canvas.onmousemove = function() {}
+    }
   }
 
   $j('#zoom-in').on('click', function () {
